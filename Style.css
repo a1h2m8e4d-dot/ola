@@ -1,0 +1,115 @@
+/* ===== COLORS & FONT — change the look here ===== */
+:root{
+  --pink:#ff8fb1; --rose:#ff5c8a; --peach:#fff0e1; --lilac:#d9c8ff;
+  --mint:#7fd6c2; --butter:#ffe27a; --cocoa:#5b3a4a; --paper:#fffaf3;
+  --font:'Baloo Bhaijaan 2',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:var(--font);color:var(--cocoa);overflow:hidden;
+  background:linear-gradient(160deg,#ffe3ec,var(--peach) 50%,#e6dcff);
+}
+/* soft paper dots texture */
+body::before{content:"";position:fixed;inset:0;opacity:.35;pointer-events:none;
+  background-image:radial-gradient(#fff 1.5px,transparent 1.6px);background-size:22px 22px}
+
+/* ===== floating background (parallax layer) ===== */
+#bg{position:fixed;inset:-24px;pointer-events:none;transition:transform .3s ease-out}
+#bg i{position:absolute;font-style:normal;animation:float var(--t,8s) ease-in-out infinite;animation-delay:var(--dl,0s);opacity:.7}
+@keyframes float{50%{transform:translateY(-22px) rotate(12deg)}}
+
+/* ===== scenes ===== */
+.scene{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(10px,2.5vh,22px);
+  padding:max(18px,env(safe-area-inset-top)) 18px max(18px,env(safe-area-inset-bottom));text-align:center;overflow-y:auto;
+  opacity:0;visibility:hidden;transform:scale(.97);transition:opacity .8s,transform .8s,visibility .8s;z-index:2}
+.scene.on{opacity:1;visibility:visible;transform:none}
+.scene>*{max-width:min(92vw,520px)}
+
+.top,.sub{font-size:clamp(1.3rem,5.4vw,2rem);font-weight:800}
+.sub{font-size:clamp(1rem,4vw,1.35rem);font-weight:500;opacity:.8}
+h1,h2{font-weight:800;line-height:1.35;overflow-wrap:anywhere}
+h1{font-size:clamp(1.7rem,7.5vw,2.8rem)} h2{font-size:clamp(1.5rem,6.5vw,2.3rem)}
+.fade-out{transition:opacity .5s,transform .5s,max-height .5s}
+body.opened .fade-out{opacity:0;transform:translateY(-10px);pointer-events:none;max-height:0;overflow:hidden;margin:0;padding:0}
+
+.btn{font:700 clamp(1.1rem,4.6vw,1.35rem) var(--font);color:#fff;background:var(--rose);border:3px solid #fff;border-radius:999px;
+  padding:.65em 1.8em;min-height:52px;cursor:pointer;box-shadow:0 6px 0 #d63d6c,0 12px 22px rgba(255,92,138,.35);transition:transform .15s,box-shadow .15s}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 #d63d6c}
+.btn:focus-visible,#music button:focus-visible{outline:3px solid var(--cocoa);outline-offset:3px}
+.btn:not(.hide):not(.fade-out){animation:pop .6s both}
+.hide{display:none}
+@keyframes pop{from{opacity:0;transform:scale(.6)}}
+
+/* word-by-word reveal (Arabic letters must stay joined, so we animate whole words) */
+.w{display:inline-block;opacity:0;transform:translateY(14px) scale(.9);transition:opacity .5s,transform .5s cubic-bezier(.3,1.5,.5,1)}
+.w.in{opacity:1;transform:none}
+
+/* ===== gift ===== */
+.gift{width:min(62vw,300px);animation:bob 2.6s ease-in-out infinite;filter:drop-shadow(0 14px 14px rgba(180,60,110,.25));transition:width .8s}
+.gift svg,.cake svg,.bear svg{width:100%;height:auto;display:block;overflow:visible}
+@keyframes bob{50%{transform:translateY(-14px) rotate(1.5deg)}}
+#glow{opacity:0;transition:opacity .8s .2s}
+#lid{transform-box:fill-box;transform-origin:left bottom;transition:transform .9s cubic-bezier(.3,1.5,.5,1)}
+.gift.shake{animation:shake .7s}
+.gift.shake #bow{animation:wig .35s 2}
+@keyframes shake{20%{transform:rotate(-6deg)}40%{transform:rotate(6deg)}60%{transform:rotate(-4deg)}80%{transform:rotate(3deg)}}
+@keyframes wig{50%{transform:translateY(-6px) rotate(8deg)}}
+#bow{transform-box:fill-box;transform-origin:center}
+.gift.open{width:min(44vw,210px)}
+.gift.open #lid{transform:translate(-30px,-70px) rotate(-24deg)}
+.gift.open #glow{opacity:.95}
+#wish-title{background:var(--paper);border:3px dashed var(--pink);border-radius:26px;padding:.6em 1em;transform:rotate(-1.5deg);box-shadow:0 8px 0 rgba(255,143,177,.35)}
+#wish-title:empty{display:none}
+
+/* ===== bear + message ===== */
+.bear{width:min(40vw,170px)}
+.bob{animation:bob 3.4s ease-in-out infinite}
+.bal{animation:sway 3s ease-in-out infinite;transform-origin:114px 156px}
+@keyframes sway{50%{transform:rotate(5deg)}}
+.card{background:var(--paper);border:3px dashed var(--pink);border-radius:26px;padding:1.1em 1.2em;width:100%;box-shadow:0 8px 0 rgba(255,143,177,.35);transform:rotate(.8deg)}
+.lead{font-size:clamp(1.1rem,4.8vw,1.5rem);font-weight:800;margin-bottom:.5em;color:var(--rose)}
+#msg p{font-size:clamp(1rem,4.3vw,1.25rem);line-height:1.75;margin-top:.3em}
+
+/* ===== cake ===== */
+.cake{width:min(74vw,330px);cursor:pointer;animation:bob 3.2s ease-in-out infinite;filter:drop-shadow(0 12px 12px rgba(180,60,110,.22))}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick .5s ease-in-out infinite alternate;animation-delay:var(--d);transition:opacity .4s,transform .4s}
+.flame.out{animation:none;opacity:0;transform:scale(.2) translateY(-8px)}
+@keyframes flick{to{transform:scale(1.08,.92) rotate(-3deg)}}
+
+/* ===== overlays, balloons, sparkles ===== */
+#dim{position:fixed;inset:0;background:#1a1030;opacity:0;pointer-events:none;transition:opacity .8s;z-index:4}
+#dim.on{opacity:.6}
+#balloons,#sparkles{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+#balloons{z-index:3}#sparkles{z-index:5}
+.balloon{position:absolute;bottom:-90px;width:46px;height:58px;border-radius:50% 50% 48% 48%;background:var(--c);animation:rise var(--t) ease-in forwards;box-shadow:inset -6px -8px 0 rgba(0,0,0,.08)}
+.balloon::after{content:"";position:absolute;top:100%;left:50%;width:2px;height:46px;background:#8a6a7a;opacity:.5}
+@keyframes rise{to{transform:translateY(-125vh) rotate(var(--r))}}
+.spark{position:absolute;color:var(--butter);text-shadow:0 0 10px #fff;animation:tw 2.6s ease-out forwards}
+@keyframes tw{0%{transform:scale(0) rotate(0);opacity:0}30%{opacity:1}100%{transform:scale(1.2) rotate(120deg);opacity:0}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:6;width:100%;height:100%}
+
+/* ===== music ===== */
+#music{position:fixed;top:max(12px,env(safe-area-inset-top));inset-inline-start:12px;display:none;gap:8px;z-index:7}
+#music.show{display:flex;animation:pop .5s both}
+#music button{width:44px;height:44px;border-radius:50%;border:3px solid #fff;background:var(--lilac);font-size:1.1rem;cursor:pointer;box-shadow:0 4px 0 rgba(91,58,74,.2)}
+#toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);background:var(--cocoa);color:#fff;padding:.6em 1.2em;border-radius:999px;font-size:.95rem;opacity:0;transition:.4s;z-index:8;max-width:90vw;text-align:center;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ===== final night scene ===== */
+.night{background:linear-gradient(180deg,#241a5e,#5a3d8f 60%,#b46aa8);color:#fff4e8}
+.moon{position:absolute;top:7%;inset-inline-end:8%;width:clamp(60px,16vw,110px);filter:drop-shadow(0 0 22px #fff4c2);animation:bob 5s ease-in-out infinite}
+.cloud{position:absolute;width:130px;height:36px;border-radius:40px;background:rgba(255,255,255,.18);animation:drift 22s linear infinite alternate}
+.cloud::before{content:"";position:absolute;width:56px;height:56px;border-radius:50%;background:inherit;top:-26px;left:22px}
+.c1{top:24%;left:6%}.c2{bottom:14%;right:8%;animation-duration:30s;transform:scale(1.3)}
+@keyframes drift{to{transform:translateX(50px)}}
+.tw{position:absolute;color:#fff;animation:twk var(--t,3s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+@keyframes twk{50%{opacity:.2;transform:scale(.6)}}
+.fin{opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s;position:relative}
+.fin.big{font-size:clamp(2.6rem,13vw,4.6rem);color:var(--butter);text-shadow:0 0 24px rgba(255,226,122,.5)}
+#f1{font-size:clamp(2rem,10vw,3.6rem)}
+.fin.tease{font-size:clamp(1.1rem,4.8vw,1.5rem);margin-top:.6em;color:#ffd1e1}
+.fin.show{opacity:1;transform:none}
+
+@media (max-height:620px){.gift{width:min(36vw,180px)}.bear{width:100px}.cake{width:min(50vw,220px)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-iteration-count:1!important}}

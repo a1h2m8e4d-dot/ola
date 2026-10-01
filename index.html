@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>هدية صغيرة 🎁</title>
+<!-- FONT: change here if you want another Google Font (also update --font in style.css) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="bg"></div>
+<div id="balloons"></div>
+<div id="dim"></div>
+<div id="sparkles"></div>
+<canvas id="confetti"></canvas>
+
+<!-- Music controls (shown after the gift opens) -->
+<div id="music">
+  <button id="playBtn" aria-label="تشغيل / إيقاف">⏸</button>
+  <button id="muteBtn" aria-label="كتم / إلغاء الكتم">🔊</button>
+</div>
+<div id="toast"></div>
+
+<!-- ========== SCENE 1: THE GIFT ========== -->
+<section class="scene on" id="s-gift">
+  <p class="top fade-out">في هدية صغيرة مستنياكي... 🎀</p>
+
+  <div class="gift" id="gift">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <ellipse cx="100" cy="190" rx="62" ry="8" fill="#000" opacity=".1"/>
+      <circle id="glow" cx="100" cy="95" r="48" fill="#fff6b8"/>
+      <rect x="30" y="98" width="140" height="88" rx="12" fill="#ff8fb1"/>
+      <rect x="92" y="98" width="16" height="88" fill="#fff3b0"/>
+      <rect x="30" y="98" width="140" height="10" fill="#000" opacity=".06"/>
+      <g id="lid">
+        <rect x="22" y="72" width="156" height="34" rx="10" fill="#ff6f9c"/>
+        <rect x="92" y="72" width="16" height="34" fill="#fff3b0"/>
+        <g id="bow">
+          <ellipse cx="78" cy="60" rx="24" ry="14" fill="#ffe27a" transform="rotate(-18 78 60)"/>
+          <ellipse cx="122" cy="60" rx="24" ry="14" fill="#ffe27a" transform="rotate(18 122 60)"/>
+          <circle cx="100" cy="68" r="9" fill="#ffd043"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <p class="sub fade-out">اضغطي عشان تفتحيها 🎁</p>
+  <button class="btn fade-out" id="open">افتحي الهدية ❤️</button>
+
+  <h1 class="reveal" id="wish-title"></h1>
+  <button class="btn hide" id="next1">كمّلي ❤️</button>
+</section>
+
+<!-- ========== SCENE 2: CHARACTER + MESSAGE ========== -->
+<section class="scene" id="s-story">
+  <div class="bear bob">
+    <svg viewBox="0 0 180 235" aria-hidden="true">
+      <g class="bal">
+        <path d="M138 20c-24 0-34 22-30 40 4 16 18 26 30 26s26-10 30-26c4-18-6-40-30-40z" fill="#ff8fb1"/>
+        <path d="M138 86l-4 8h8z" fill="#ff8fb1"/>
+        <ellipse cx="127" cy="40" rx="5" ry="9" fill="#fff" opacity=".5" transform="rotate(20 127 40)"/>
+        <path d="M138 94C138 130 118 140 114 156" stroke="#8a6a7a" fill="none" stroke-width="2"/>
+      </g>
+      <circle cx="60" cy="94" r="17" fill="#d9a679"/><circle cx="60" cy="94" r="8" fill="#f3cfae"/>
+      <circle cx="120" cy="94" r="17" fill="#d9a679"/><circle cx="120" cy="94" r="8" fill="#f3cfae"/>
+      <ellipse cx="90" cy="192" rx="40" ry="36" fill="#e4b88c"/>
+      <ellipse cx="90" cy="196" rx="24" ry="24" fill="#f6dcc0"/>
+      <ellipse cx="62" cy="184" rx="9" ry="20" fill="#d9a679" transform="rotate(25 62 184)"/>
+      <ellipse cx="118" cy="168" rx="9" ry="20" fill="#d9a679" transform="rotate(-35 118 168)"/>
+      <circle cx="70" cy="224" r="13" fill="#d9a679"/><circle cx="110" cy="224" r="13" fill="#d9a679"/>
+      <circle cx="90" cy="122" r="43" fill="#e4b88c"/>
+      <ellipse cx="90" cy="134" rx="16" ry="12" fill="#f6dcc0"/>
+      <circle cx="76" cy="116" r="4" fill="#4a2f3a"/><circle cx="104" cy="116" r="4" fill="#4a2f3a"/>
+      <ellipse cx="90" cy="128" rx="5" ry="3.5" fill="#4a2f3a"/>
+      <path d="M84 135q6 5 12 0" stroke="#4a2f3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="65" cy="130" r="6" fill="#ff9db8" opacity=".6"/><circle cx="115" cy="130" r="6" fill="#ff9db8" opacity=".6"/>
+      <path d="M78 160l12 7 12-7v14l-12-7-12 7z" fill="#ff6f9c"/>
+    </svg>
+  </div>
+  <div class="card">
+    <p class="lead" id="bear-intro"></p>
+    <div id="msg"></div>
+  </div>
+  <button class="btn hide" id="next2">كمّلي ❤️</button>
+</section>
+
+<!-- ========== SCENE 3: CAKE ========== -->
+<section class="scene" id="s-cake">
+  <h2 id="wish-text">يلا... اتمني أمنية ❤️</h2>
+  <div class="cake" id="cake" role="button" aria-label="اطفي الشمع">
+    <svg viewBox="0 0 240 230" aria-hidden="true">
+      <ellipse cx="120" cy="208" rx="108" ry="14" fill="#fff" stroke="#f0cfe0" stroke-width="3"/>
+      <rect x="30" y="140" width="180" height="68" rx="16" fill="#ffc6d9"/>
+      <rect x="30" y="140" width="180" height="22" rx="11" fill="#fff"/>
+      <g fill="#7fd6c2"><rect x="52" y="176" width="10" height="4" rx="2" transform="rotate(20 57 178)"/><rect x="100" y="186" width="10" height="4" rx="2" transform="rotate(-25 105 188)"/><rect x="150" y="174" width="10" height="4" rx="2" transform="rotate(30 155 176)"/><rect x="182" y="188" width="10" height="4" rx="2" transform="rotate(-15 187 190)"/></g>
+      <rect x="60" y="94" width="120" height="50" rx="14" fill="#d9c8ff"/>
+      <rect x="60" y="94" width="120" height="18" rx="9" fill="#fff"/>
+      <circle cx="120" cy="92" r="7" fill="#ff5c8a"/>
+      <g fill="#ffd36e"><rect x="86" y="62" width="8" height="30" rx="3"/><rect x="146" y="62" width="8" height="30" rx="3"/></g>
+      <g fill="#8fd3ff"><rect x="116" y="62" width="8" height="30" rx="3"/></g>
+      <g class="flame" style="--d:0s"><circle cx="90" cy="50" r="15" fill="#ffd36e" opacity=".3"/><ellipse cx="90" cy="52" rx="6" ry="11" fill="#ffb347"/><ellipse cx="90" cy="55" rx="3" ry="6" fill="#fff3b0"/></g>
+      <g class="flame" style="--d:.3s"><circle cx="120" cy="50" r="15" fill="#ffd36e" opacity=".3"/><ellipse cx="120" cy="52" rx="6" ry="11" fill="#ffb347"/><ellipse cx="120" cy="55" rx="3" ry="6" fill="#fff3b0"/></g>
+      <g class="flame" style="--d:.6s"><circle cx="150" cy="50" r="15" fill="#ffd36e" opacity=".3"/><ellipse cx="150" cy="52" rx="6" ry="11" fill="#ffb347"/><ellipse cx="150" cy="55" rx="3" ry="6" fill="#fff3b0"/></g>
+    </svg>
+  </div>
+  <button class="btn" id="blowBtn">اطفي الشمع 🕯️</button>
+</section>
+
+<!-- ========== SCENE 4: FINAL NIGHT SKY ========== -->
+<section class="scene night" id="s-final">
+  <div class="moon"><svg viewBox="0 0 100 100"><path d="M70 10a40 40 0 1 0 20 62A34 34 0 0 1 70 10z" fill="#fff4c2"/></svg></div>
+  <div class="cloud c1"></div><div class="cloud c2"></div>
+  <h1 class="fin" id="f1" dir="ltr"></h1>
+  <h2 class="fin big" id="f2"></h2>
+  <p class="fin" id="f3"></p>
+  <p class="fin tease" id="f4"></p>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
